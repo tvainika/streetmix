@@ -414,34 +414,6 @@ function _repositionSegments () {
   }
 }
 
-function _nextSegmentVariant (dataNo) {
-  var segment = street.segments[dataNo]
-
-  var segmentInfo = SEGMENT_INFO[segment.type]
-
-  var nextVariantString = ''
-  var found = 0
-  for (var i in segmentInfo.details) {
-    if (found == 1) {
-      nextVariantString = i
-      break
-    }
-    if (i == segment.variantString) {
-      found = 1
-    }
-  }
-
-  if (!nextVariantString) {
-    // TODO hack
-    for (var i in segmentInfo.details) {
-      nextVariantString = i
-      break
-    }
-  }
-
-  _changeSegmentVariant(dataNo, null, null, nextVariantString)
-}
-
 function _changeSegmentVariant (dataNo, variantName, variantChoice, variantString) {
   var segment = street.segments[dataNo]
 

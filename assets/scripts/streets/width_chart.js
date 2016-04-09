@@ -17,27 +17,27 @@ var widthChartHideTimerId = -1
 
 var SEGMENT_OWNERS = {
   'car': {
-    owner: SEGMENT_OWNER_CAR,
+    owner: 'CAR',
     imageUrl: '/images/ui/icons/noun_project_72.svg',
     imageSize: .8
   },
   'public-transit': {
-    owner: SEGMENT_OWNER_PUBLIC_TRANSIT,
+    owner: 'PUBLIC_TRANSIT',
     imageUrl: '/images/ui/icons/noun_project_97.svg',
     imageSize: .8
   },
   'bike': {
-    owner: SEGMENT_OWNER_BIKE,
+    owner: 'BIKE',
     imageUrl: '/images/ui/icons/noun_project_536.svg',
     imageSize: 1.1
   },
   'pedestrian': {
-    owner: SEGMENT_OWNER_PEDESTRIAN,
+    owner: 'PEDESTRIAN',
     imageUrl: '/images/ui/icons/noun_project_2.svg',
     imageSize: .8
   },
   'nature': {
-    owner: SEGMENT_OWNER_NATURE,
+    owner: 'NATURE',
     imageUrl: '/images/ui/icons/noun_project_13130.svg',
     imageSize: .8
   }

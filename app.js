@@ -17,7 +17,6 @@ var controllers = require('./app/controllers')
 var resources = require('./app/resources')
 var requestHandlers = require('./lib/request_handlers')
 var middleware = require('./lib/middleware')
-var logger = require('./lib/logger')()
 var exec = require('child_process').exec
 
 var app = module.exports = express()
@@ -70,6 +69,9 @@ app.post('/api/v1/feedback', resources.v1.feedback.post)
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
 
 app.get('/.well-known/status', resources.well_known_status.get)
+
+// Data
+app.use('/assets/data.json', middleware.data)
 
 // Process stylesheets via Sass and PostCSS / Autoprefixer
 app.use('/assets/css/styles.css', middleware.styles)

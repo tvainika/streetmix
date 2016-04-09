@@ -574,11 +574,11 @@ function _doDropHeuristics (type, variantString, width) {
   var rightOwner = right && SEGMENT_INFO[right.type].owner
 
   var leftOwnerAsphalt =
-  (leftOwner == SEGMENT_OWNER_CAR) || (leftOwner == SEGMENT_OWNER_BIKE) ||
-    (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)
+  (leftOwner == 'CAR') || (leftOwner == 'BIKE') ||
+    (leftOwner == 'PUBLIC_TRANSIT')
   var rightOwnerAsphalt =
-  (rightOwner == SEGMENT_OWNER_CAR) || (rightOwner == SEGMENT_OWNER_BIKE) ||
-    (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)
+  (rightOwner == 'CAR') || (rightOwner == 'BIKE') ||
+    (rightOwner == 'PUBLIC_TRANSIT')
 
   var leftVariant = left && _getVariantArray(left.type, left.variantString)
   var rightVariant = right && _getVariantArray(right.type, right.variantString)
@@ -628,9 +628,9 @@ function _doDropHeuristics (type, variantString, width) {
   // Transit shelter orientation and elevation
 
   if (type == 'transit-shelter') {
-    if (left && (leftOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)) {
+    if (left && (leftOwner == 'PUBLIC_TRANSIT')) {
       variant['orientation'] = 'right'
-    } else if (right && (rightOwner == SEGMENT_OWNER_PUBLIC_TRANSIT)) {
+    } else if (right && (rightOwner == 'PUBLIC_TRANSIT')) {
       variant['orientation'] = 'left'
     }
   }
@@ -646,9 +646,9 @@ function _doDropHeuristics (type, variantString, width) {
   // Bike rack orientation
 
   if (type == 'sidewalk-bike-rack') {
-    if (left && (leftOwner != SEGMENT_OWNER_PEDESTRIAN)) {
+    if (left && (leftOwner != 'PEDESTRIAN')) {
       variant['orientation'] = 'left'
-    } else if (right && (rightOwner != SEGMENT_OWNER_PEDESTRIAN)) {
+    } else if (right && (rightOwner != 'PEDESTRIAN')) {
       variant['orientation'] = 'right'
     }
   }
@@ -779,9 +779,6 @@ function _onBodyMouseUp (event) {
     case DRAGGING_TYPE_CLICK_OR_MOVE:
       _changeDraggingType(DRAGGING_TYPE_NONE)
       ignoreStreetChanges = false
-
-      // click!
-      // _nextSegmentVariant(draggingMove.originalEl.dataNo)
       break
     case DRAGGING_TYPE_MOVE:
       _handleSegmentMoveEnd(event)

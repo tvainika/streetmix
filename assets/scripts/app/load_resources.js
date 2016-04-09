@@ -6,6 +6,8 @@
  */
 /* global _checkIfEverythingIsLoaded, Image */
 
+import { prepareSegmentInfo } from '../segments/info'
+
 // Image tileset loading
 // TODO: Deprecate in favor of inlined SVGs
 const TILESET_IMAGE_VERSION = 55
@@ -22,6 +24,8 @@ const SVGS_TO_BE_LOADED = [
   '/assets/images/images.svg'
 ]
 
+const DATA_ENDPOINT = '/assets/data.json'
+
 const SVGStagingEl = document.getElementById('svg')
 
 let images = [] // This is an associative array; TODO: something else
@@ -37,6 +41,7 @@ window.imagesToBeLoaded = 1
 // Load everything
 loadImages()
 loadSVGs()
+loadData()
 
 // When everything is loaded...
 Promise.all(loading)
@@ -130,6 +135,22 @@ function loadSVGs () {
         console.error('loading svg error', error)
       }))
   }
+}
+
+function loadData () {
+  loadingEl.max += 1
+
+  loading.push(window.fetch(DATA_ENDPOINT)
+    .then(function (response) {
+      return response.json()
+    })
+    .then(function (response) {
+      window.SEGMENT_INFO = prepareSegmentInfo(response)
+      loadingEl.value++
+    })
+    .catch(function (error) {
+      console.error('loading data error', error)
+    }))
 }
 
 /**

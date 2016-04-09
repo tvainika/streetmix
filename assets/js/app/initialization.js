@@ -37,7 +37,6 @@ Stmx.init = function () {
   window.dispatchEvent(new CustomEvent('stmx:init'))
 
   _fillEmptySegments()
-  _prepareSegmentInfo()
 
   // TODO make it better
   // Related to Enter to 404 bug in Chrome
