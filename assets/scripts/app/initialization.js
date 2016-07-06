@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import Raven from 'raven-js'
 
 import { hideLoadingScreen, getImagesToBeLoaded } from './load_resources'
 import { initLocale } from './locale'
@@ -35,6 +36,7 @@ import {
 import { ENV } from './config'
 import { addEventListeners } from './event_listeners'
 import { trackEvent } from './event_tracking'
+import { startListening } from './keypress'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl, updatePageUrl, getGalleryUserId } from './page_url'
 import { onResize } from './window_resize'
@@ -67,9 +69,38 @@ export function setAbortEverything (value) {
   abortEverything = value
 }
 
-export const Stmx = {}
+function loadSentryClient () {
+  // Error tracking
+  // Load this before all other modules. Only load when run in production.
+  if (window.location.hostname === 'streetmix.net' || window.location.hostname === 'www.streetmix.net') {
+    Raven.config('https://fac2c23600414d2fb78c128cdbdeaf6f@app.getsentry.com/82756', {
+      whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
+    }).install()
+  }
+}
 
-Stmx.preInit = function () {
+function setScaleForPhone () {
+  var meta = document.createElement('meta')
+  meta.setAttribute('name', 'viewport')
+
+  if (system.phone) {
+    meta.setAttribute('content', 'initial-scale=.5, maximum-scale=.5')
+  } else {
+    meta.setAttribute('content', 'initial-scale=1, maximum-scale=1')
+  }
+
+  var headEls = document.getElementsByTagName('head')
+  headEls[0].appendChild(meta)
+}
+
+export function Stmx () {
+
+  loadSentryClient()
+
+  // Start listening for keypresses
+  startListening()
+  setScaleForPhone()
+
   initializing = true
   setIgnoreStreetChanges(true)
 
@@ -78,9 +109,7 @@ Stmx.preInit = function () {
     language = language.substr(0, 2).toUpperCase()
     updateSettingsFromCountryCode(language)
   }
-}
 
-Stmx.init = function () {
   if (!debug.forceUnsupportedBrowser) {
     // TODO temporary ban
     if ((navigator.userAgent.indexOf('Opera') !== -1) ||

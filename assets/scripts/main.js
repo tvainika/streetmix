@@ -3,8 +3,6 @@
  *
  */
 
-import Raven from 'raven-js'
-
 // Polyfills
 import 'babel-polyfill'
 import 'whatwg-fetch' // fetch API
@@ -14,10 +12,6 @@ import './vendor/Blob.js'
 import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 
-// Main object
-import { Stmx } from './app/initialization'
-import { startListening } from './app/keypress'
-import { system } from './preinit/system_capabilities'
 // import modules for side-effects
 import './app/blocking_shield'
 import './app/debug_info'
@@ -38,29 +32,6 @@ import './streets/name'
 import './streets/scroll'
 import './util/fetch_nonblocking'
 
-// Error tracking
-// Load this before all other modules. Only load when run in production.
-if (window.location.hostname === 'streetmix.net' || window.location.hostname === 'www.streetmix.net') {
-  Raven.config('https://fac2c23600414d2fb78c128cdbdeaf6f@app.getsentry.com/82756', {
-    whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
-  }).install()
-}
-
-function setScaleForPhone () {
-  var meta = document.createElement('meta')
-  meta.setAttribute('name', 'viewport')
-
-  if (system.phone) {
-    meta.setAttribute('content', 'initial-scale=.5, maximum-scale=.5')
-  } else {
-    meta.setAttribute('content', 'initial-scale=1, maximum-scale=1')
-  }
-
-  var headEls = document.getElementsByTagName('head')
-  headEls[0].appendChild(meta)
-}
-setScaleForPhone()
-
 // This event is fired by _onEverythingLoaded() in the deprecated
 // global bundle. This allows things in the modular bundle to respond
 // to that function without needing to be exported globally.
@@ -70,8 +41,6 @@ window.addEventListener('stmx:everything_loaded', function (e) {
   _onEverythingLoaded2()
 })
 
-// Start listening for keypresses
-startListening()
-
-Stmx.preInit()
-Stmx.init()
+// Main object
+import { Stmx } from './app/initialization'
+Stmx()
