@@ -1,4 +1,5 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import { app } from '../preinit/app_settings'
 import { system } from '../preinit/system_capabilities'
@@ -190,8 +191,8 @@ export default class WelcomePanel extends React.Component {
 
         welcomeContent = (
           <div className='welcome-panel-content first-time-existing-street'>
-            <h1 data-i18n='dialogs.welcome.heading'>
-              Welcome to Streetmix.
+            <h1>
+              <FormattedMessage id='dialogs.welcome.heading' defaultMessage='Welcome to Streetmix.' />
             </h1>
             {/* Enclose child elements in a paragraph-like <div> to get around
                 React's warning that <div> elements from StreetName and

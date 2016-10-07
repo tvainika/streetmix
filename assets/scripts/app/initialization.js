@@ -216,12 +216,8 @@ if (debug.hoverPolygon) {
   createDebugHoverPolygon()
 }
 
-// Toggle experimental features
-if (debug.experimental) {
-  // Initalize i18n / localization
-  // Currently experimental-only
-  initLocale()
-}
+// Initialize i18n / localization
+initLocale()
 
 // Other
 addBodyClasses()
