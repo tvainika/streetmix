@@ -114,3 +114,7 @@ Scrollable.propTypes = {
   children: React.PropTypes.node,
   setRef: React.PropTypes.func
 }
+
+Scrollable.defaultProps = {
+  setRef: function noop () {}
+}
