@@ -6,6 +6,7 @@
 import Raven from 'raven-js'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
 // Polyfills
 import 'babel-polyfill'
@@ -15,6 +16,9 @@ import './vendor/canvas-toBlob.js'
 import './vendor/Blob.js'
 import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
+
+// Redux
+import store from './store'
 
 // Main object
 import { initialize } from './app/initialization'
@@ -51,7 +55,12 @@ setScaleForPhone()
 // Temp: mount React components
 ReactDOM.render(<App />, document.getElementById('react-app'))
 ReactDOM.render(<DebugInfo />, document.getElementById('debug'))
-ReactDOM.render(<Gallery />, document.getElementById('gallery-react'))
+ReactDOM.render(
+  <Provider store={store}>
+    <Gallery />
+  </Provider>,
+  document.getElementById('gallery-react')
+)
 
 // Start listening for keypresses
 startListening()
