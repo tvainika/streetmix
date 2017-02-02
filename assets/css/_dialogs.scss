@@ -26,6 +26,10 @@ $dialog-box-default-width: 790px;
   touch-action: none;
 }
 
+.dialog-box-shield-unclickable {
+  cursor: auto;
+}
+
 .dialog-box {
   @include box-border;
 
