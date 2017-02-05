@@ -75,7 +75,7 @@ export default class StreetName extends React.Component {
   }
 
   clickStreetName () {
-    if (!this.props.allowEditing) {
+    if (!this.props.editable) {
       return
     }
 
@@ -106,7 +106,7 @@ export default class StreetName extends React.Component {
 
 StreetName.propTypes = {
   id: React.PropTypes.string,
-  allowEditing: React.PropTypes.bool,
+  editable: React.PropTypes.bool,
   street: React.PropTypes.any,
   handleResize: React.PropTypes.func
 }
